@@ -5,6 +5,9 @@ on:
     # Run on every push except pushes to gh-pages (to avoid recursion)
     branches-ignore:
       - gh-pages
+      
+permissions:
+  contents: write
 
 jobs:
   publish:
