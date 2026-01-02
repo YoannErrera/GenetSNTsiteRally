@@ -11,6 +11,7 @@
   <header class="site-header">
     <div class="container header-inner">
       <div class="logo">Rallye Passion</div>
+      <button class="mobile-nav-toggle" aria-expanded="false" aria-label="Ouvrir le menu">☰</button>
       <nav class="main-nav">
         <a href="index.html" class="nav-link active">Accueil</a>
         <a href="page/actus.html" class="nav-link">Actualités</a>
@@ -220,6 +221,22 @@
 
   <script>
     (function(){
+      // Mobile nav toggle
+      const mobileToggle = document.querySelector('.mobile-nav-toggle');
+      const mainNavEl = document.querySelector('.main-nav');
+      if (mobileToggle && mainNavEl) {
+        mobileToggle.addEventListener('click', () => {
+          const expanded = mobileToggle.getAttribute('aria-expanded') === 'true';
+          mobileToggle.setAttribute('aria-expanded', String(!expanded));
+          mainNavEl.classList.toggle('open');
+        });
+        // Close menu when a nav link is clicked (mobile)
+        mainNavEl.querySelectorAll('.nav-link').forEach(l => l.addEventListener('click', () => {
+          mainNavEl.classList.remove('open');
+          mobileToggle.setAttribute('aria-expanded', 'false');
+        }));
+      }
+
       // Marquer le lien actif
       const links = document.querySelectorAll('.main-nav .nav-link');
       links.forEach(l => { if (l.href.endsWith(location.pathname.split('/').pop())) l.classList.add('active'); });
